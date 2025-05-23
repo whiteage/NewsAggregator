@@ -17,7 +17,7 @@ class NewsRepositoryImpl() : NewsRepository {
                 newList.add(NewsItem(
                     name = it.title,
                     desc = it.description.replace(Regex("<.*?>"),""),
-                    icon = newsList.channel.image.url,
+                    icon = it.contents.lastOrNull()?.url ?: "",
                     date = it.pubDate,
                     author = it.dcCreator,
                     url = it.guid

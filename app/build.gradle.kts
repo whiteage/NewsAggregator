@@ -67,6 +67,14 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
+
+
+    implementation ("com.google.accompanist:accompanist-swiperefresh:0.30.1")
+    implementation (platform("androidx.compose:compose-bom:2023.08.00"))
+    implementation ("androidx.compose.material3:material3")
+
+
+
     // xml
     implementation(libs.xmlutil.core)
     implementation(libs.xmlutil.serialization)

@@ -1,5 +1,7 @@
 package com.example.newsaggregator.ui
 
+import android.util.Log
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -20,7 +22,20 @@ class MainVM : ViewModel() {
     private val _newsList = MutableLiveData<List<NewsItem>>()
     val newsList : LiveData<List<NewsItem>> = _newsList
 
+    private val _isRefreshing = MutableLiveData(false)
+    val isRefreshing: LiveData<Boolean> = _isRefreshing
+
+
+    fun refreshNews(){
+        viewModelScope.launch {
+            _isRefreshing.value = true
+            _newsList.postValue(getAllNews.getAllNews())
+            _isRefreshing.value = false
+        }
+    }
+
     fun getAllNews(){
+        Log.d("data", "LOADING")
         viewModelScope.launch { _newsList.postValue(getAllNews.getAllNews()) }
     }
 
