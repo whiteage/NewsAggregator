@@ -14,7 +14,6 @@ import com.example.newsaggregator.R
 
 @Composable
 fun ErrorScreen(
-    message: String,
     onRetry: () -> Unit
 ) {
     Column(
@@ -25,7 +24,7 @@ fun ErrorScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Icon(
-            painter = painterResource(id = R.drawable.ic_launcher_foreground),
+            painter = painterResource(id = R.drawable.guardianlogo),
             contentDescription = null,
             modifier = Modifier
                 .size(80.dp)
@@ -34,7 +33,7 @@ fun ErrorScreen(
         )
 
         Text(
-            text = "Что-то пошло не так",
+            text = "No internet connection",
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold
         )
@@ -42,7 +41,12 @@ fun ErrorScreen(
         Spacer(modifier = Modifier.height(8.dp))
 
         Text(
-            text = message,
+            text = "Try to check the internet connection." ,
+            fontSize = 16.sp,
+            color = Color.Gray
+        )
+        Text(
+            text =  "If you are using VPN or proxy, try to turn it off.",
             fontSize = 16.sp,
             color = Color.Gray
         )
@@ -51,9 +55,11 @@ fun ErrorScreen(
 
         Button(
             onClick = onRetry,
-            shape = MaterialTheme.shapes.medium
+            shape = MaterialTheme.shapes.medium,
+            modifier = Modifier,
+            colors = ButtonDefaults.buttonColors(contentColor = Color.White, containerColor = Color.DarkGray)
         ) {
-            Text(text = "Повторить")
+            Text(text = "Retry")
         }
     }
 }

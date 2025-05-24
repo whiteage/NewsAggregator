@@ -32,6 +32,8 @@ class MainVM @Inject constructor(
     private val _allCategorys = MutableLiveData<List<String>>()
     val allCategorys : LiveData<List<String>> = _allCategorys
 
+    private val _errorState = MutableLiveData<Boolean>(false)
+    val errorState : LiveData<Boolean> = _errorState
 
 
     fun refreshNews(){
@@ -52,9 +54,12 @@ class MainVM @Inject constructor(
                 getAllNews.getAllNews()
             }
             _newsList.value = news
-            Log.d("category", "${_newsList.value}")
+            _errorState.postValue(news.isEmpty())
+
             getAllCategories()
-        }}
+
+        }
+    }
 
     fun getNewsWithCategory(category : String){
         Log.d("category", "LOADING")

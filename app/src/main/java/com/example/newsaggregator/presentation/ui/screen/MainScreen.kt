@@ -33,6 +33,7 @@ fun MainScreen(viewModel: MainVM, navHostController: NavHostController) {
     val news = viewModel.newsList.observeAsState(emptyList())
     val refreshing = viewModel.isRefreshing.observeAsState(initial = false)
     val categorys = viewModel.allCategorys.observeAsState(emptyList())
+    val errorState = viewModel.errorState.observeAsState(false)
 
     LaunchedEffect(Unit) {
         viewModel.getAllNews()
@@ -70,12 +71,19 @@ fun MainScreen(viewModel: MainVM, navHostController: NavHostController) {
                 }
             }}}
         } else {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                Image(painterResource(R.drawable.guardianlogo), contentDescription = "guardian logo")
+            if (errorState.value == false){
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Image(painterResource(R.drawable.guardianlogo), contentDescription = "guardian logo")
+                }
             }
+            else{
+                ErrorScreen(onRetry = {viewModel.getAllNews()})
+
+            }
+
         }
     }
 }
