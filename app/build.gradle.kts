@@ -8,6 +8,7 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
     alias(libs.plugins.androidx.navigation.safeargs)
+    id("app.cash.sqldelight") version "2.0.2"
 }
 
 android {
@@ -59,6 +60,7 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.androidx.runtime.livedata)
+    implementation(libs.androidx.animation.core.android)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -66,6 +68,14 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+
+
+    implementation ("com.google.accompanist:accompanist-swiperefresh:0.30.1")
+    implementation (platform("androidx.compose:compose-bom:2023.08.00"))
+    implementation ("androidx.compose.material3:material3")
+
+
 
     // xml
     implementation(libs.xmlutil.core)
@@ -77,6 +87,10 @@ dependencies {
 
     // coil
     implementation(libs.coil)
+
+    // sqldelight
+    implementation("app.cash.sqldelight:android-driver:2.0.2")
+    implementation("app.cash.sqldelight:jdbc-driver:2.0.2")
 
     // room
     implementation(libs.androidx.room.runtime)
