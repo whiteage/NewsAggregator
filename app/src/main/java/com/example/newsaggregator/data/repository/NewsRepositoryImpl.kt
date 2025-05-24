@@ -54,7 +54,7 @@ class NewsRepositoryImpl @Inject constructor(
             val newsList = fetchedNews.channel.items.map {
                 val iconUrl = it.contents.lastOrNull()?.url ?: ""
                 dataBase.database.newsQueries.insertIntoDB(
-                    url = iconUrl,
+                    url = it.guid,
                     title = it.title,
                     desc = cleanHtmlTags(it.description),
                     icon = iconUrl,
@@ -95,6 +95,7 @@ class NewsRepositoryImpl @Inject constructor(
     @RequiresApi(Build.VERSION_CODES.O)
     override suspend fun getNewsWithCategory(category: String): List<NewsItem> {
         val cachedNews = dataBase.database.newsQueries.getFromDBCategory(category).executeAsList()
+        Log.d("cachedNews","${cachedNews}")
         return cachedNews.map {
             mapToNewsItem(
                 title = it.title,

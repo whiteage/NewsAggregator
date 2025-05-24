@@ -40,6 +40,8 @@ class MainVM @Inject constructor(
     private val _shareContent = MutableLiveData<String>()
     val shareContent: LiveData<String> = _shareContent
 
+    private val _chosenCategory = MutableLiveData<String>("All")
+    val chosenCategory: LiveData<String> = _chosenCategory
 
     fun shareContent(url : String){
         val content = prepareShareContent.prepareShareContent(url = url)
@@ -49,9 +51,14 @@ class MainVM @Inject constructor(
     fun refreshNews(){
         viewModelScope.launch {
             _isRefreshing.value = true
-            withContext(Dispatchers.IO){_newsList.postValue(getAllNews.getAllNews())}
+            if(_chosenCategory.value == "All"){
+                withContext(Dispatchers.IO){_newsList.postValue(getAllNews.getAllNews())}
+                getAllCategories()
+            }
+            else{
+                _newsList.postValue(getNewsWithCategory.getNewsWithCategory(_chosenCategory.value ?: "All"))
+            }
             _isRefreshing.value = false
-            getAllCategories()
         }
 
     }
@@ -71,9 +78,22 @@ class MainVM @Inject constructor(
         }
     }
 
-    fun getNewsWithCategory(category : String){
+    fun getNewsWithCategory(category: String) {
         Log.d("category", "LOADING")
-        viewModelScope.launch { _newsList.postValue(getNewsWithCategory.getNewsWithCategory(category)) }
+
+        viewModelScope.launch {
+            val currentCategory = _chosenCategory.value
+
+            if (currentCategory == category) {
+
+                _newsList.postValue(getAllNews.getAllNews())
+                _chosenCategory.postValue("All")
+            } else {
+
+                _newsList.postValue(getNewsWithCategory.getNewsWithCategory(category))
+                _chosenCategory.postValue(category)
+            }
+        }
     }
 
     suspend fun getAllCategories(){

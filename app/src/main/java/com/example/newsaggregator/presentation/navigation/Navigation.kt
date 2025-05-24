@@ -27,7 +27,7 @@ fun Navigation(viewModel: MainVM){
         }
 
         composable(Screens.ShareScreen.route) {
-            val encodedUrll = it.arguments?.getString("web")
+            val encodedUrll = it.arguments?.getString("webb")
             val urll = encodedUrll?.let { Uri.decode(it) }
             ShareScreen(viewModel,urll!!,navHostController)
         }

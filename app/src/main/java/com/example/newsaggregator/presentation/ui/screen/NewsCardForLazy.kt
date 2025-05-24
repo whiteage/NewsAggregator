@@ -1,5 +1,6 @@
 package com.example.newsaggregator.presentation.ui.screen
 
+import android.util.Log
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -55,7 +56,11 @@ fun NewsCardForLazy(item: NewsItem, navHostController: NavHostController, viewMo
             .animateContentSize()
             .combinedClickable(
                 onClick = { cardExpanded = !cardExpanded },
-                onLongClick = { navHostController.navigate(Screens.WebView.createRoute(item.url)) }
+                onLongClick = {
+                    Log.d("Sosal?", "${item.url}, ${item.icon}")
+                    navHostController.navigate(Screens.WebView.createRoute(item.url)
+
+                ) }
             ),
         shape = RoundedCornerShape(16.dp),
         border = BorderStroke(1.dp, Color.LightGray),
