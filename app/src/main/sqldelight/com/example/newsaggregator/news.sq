@@ -1,0 +1,21 @@
+CREATE TABLE newsDB(
+    url TEXT PRIMARY KEY NOT NULL ,
+    title TEXT,
+    desc TEXT,
+    icon TEXT,
+    date TEXT,
+    author TEXT,
+    category TEXT
+);
+
+
+insertIntoDB:
+INSERT OR IGNORE INTO newsDB(url,title,desc,icon,date,author, category)
+VALUES(?,?,?,?,?,?, ?);
+
+getFromDBAll:
+SELECT * FROM newsDB;
+
+getFromDBCategory:
+SELECT * FROM newsDB
+WHERE category = ?;
