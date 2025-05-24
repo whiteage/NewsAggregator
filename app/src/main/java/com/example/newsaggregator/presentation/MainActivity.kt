@@ -7,8 +7,9 @@ import androidx.activity.enableEdgeToEdge
 import androidx.lifecycle.ViewModelProvider
 import com.example.newsaggregator.presentation.navigation.Navigation
 import com.example.newsaggregator.presentation.viewmodel.MainVM
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

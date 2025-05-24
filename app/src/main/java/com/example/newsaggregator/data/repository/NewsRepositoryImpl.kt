@@ -10,12 +10,14 @@ import com.example.newsaggregator.domain.entity.NewsItem
 import com.example.newsaggregator.domain.repository.NewsRepository
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
+import javax.inject.Inject
 
 @RequiresApi(Build.VERSION_CODES.O)
-class NewsRepositoryImpl(context: Context) : NewsRepository {
-
-    private val dataSource = NewsDataSource()
-    private val dataBase = DataBaseDriver(context)
+class NewsRepositoryImpl @Inject constructor(
+    private val context: Context,
+    private val dataSource: NewsDataSource,
+    private val dataBase: DataBaseDriver
+) : NewsRepository {
 
     private fun cleanHtmlTags(text: String): String = text.replace(Regex("<.*?>"), "")
 

@@ -6,21 +6,22 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.newsaggregator.data.repository.NewsRepositoryImpl
 import com.example.newsaggregator.domain.usecases.GetAllNews
 import com.example.newsaggregator.domain.usecases.GetNewsWithCategory
 import com.example.newsaggregator.domain.entity.NewsItem
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class MainVM(application: Application) : AndroidViewModel(application) {
+@HiltViewModel
+class MainVM @Inject constructor(
+    private val getAllNews: GetAllNews,
+    private val getNewsWithCategory: GetNewsWithCategory,
+    application: Application) : AndroidViewModel(application) {
 
 
-    private val repository = NewsRepositoryImpl(context = application)
-
-    private val getAllNews = GetAllNews(repository)
-    private val getNewsWithCategory = GetNewsWithCategory(repository)
 
     private val _newsList = MutableLiveData<List<NewsItem>>()
     val newsList : LiveData<List<NewsItem>> = _newsList
