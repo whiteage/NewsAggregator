@@ -4,21 +4,29 @@ import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.combinedClickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Send
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -32,11 +40,12 @@ import coil.compose.AsyncImage
 
 import com.example.newsaggregator.domain.entity.NewsItem
 import com.example.newsaggregator.presentation.navigation.Screens
+import com.example.newsaggregator.presentation.viewmodel.MainVM
 
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun NewsCardForLazy(item: NewsItem, navHostController: NavHostController) {
+fun NewsCardForLazy(item: NewsItem, navHostController: NavHostController, viewModel : MainVM) {
     var cardExpanded by remember { mutableStateOf(false) }
 
     Card(
@@ -97,14 +106,24 @@ fun NewsCardForLazy(item: NewsItem, navHostController: NavHostController) {
                 )
 
                 Spacer(modifier = Modifier.height(8.dp))
+                Row(Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween) {
+                    Text(
+                        text = "By ${item.author}",
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight.Light,
+                        color = Color.Gray,
 
-                Text(
-                    text = "By ${item.author}",
-                    fontSize = 12.sp,
-                    fontWeight = FontWeight.Light,
-                    color = Color.Gray,
-                    modifier = Modifier.fillMaxWidth()
-                )
+                    )
+                    IconButton (onClick = { navHostController.navigate(
+                        Screens.ShareScreen.createRoute(item.url)) }, modifier = Modifier) {
+                        Icon(Icons.Default.Send, contentDescription = "shareButton")
+
+                    }
+
+                }
+
+
             }
         }
     }

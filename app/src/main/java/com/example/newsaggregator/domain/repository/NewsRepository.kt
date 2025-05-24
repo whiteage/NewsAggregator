@@ -6,6 +6,7 @@ interface NewsRepository {
 
     suspend fun getAllNews() : List<NewsItem>
     suspend fun getNewsWithCategory(category: String) : List<NewsItem>
+    fun prepareShareContent(url: String) : String
 
 
 }

@@ -107,6 +107,10 @@ class NewsRepositoryImpl @Inject constructor(
             )
         }.sortedByDescending { parseDateOrDefault(it.date) }
     }
+
+    override  fun prepareShareContent(url: String): String {
+        return "$url"
+    }
 }
 
 

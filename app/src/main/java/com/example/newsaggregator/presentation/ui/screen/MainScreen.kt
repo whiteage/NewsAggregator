@@ -67,7 +67,7 @@ fun MainScreen(viewModel: MainVM, navHostController: NavHostController) {
                     .fillMaxSize()
             ) {
                 itemsIndexed(items = news.value) { _, item ->
-                    NewsCardForLazy(item, navHostController)
+                    NewsCardForLazy(item, navHostController, viewModel)
                 }
             }}}
         } else {
