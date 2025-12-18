@@ -77,9 +77,12 @@ dependencies {
 
 
 
+
+
     // xml
     implementation(libs.xmlutil.core)
     implementation(libs.xmlutil.serialization)
+    implementation("io.github.pdvrieze.xmlutil:serialization:0.86.3")
 
     // retrofit
     implementation(libs.retrofit2)
